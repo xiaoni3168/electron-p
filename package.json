@@ -1,0 +1,52 @@
+{
+  "name": "electron-p",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack-dev-server --progress --hot --inline --config ./client/webpack.config.js",
+    "app": "webpack-dev-server --progress --hot --inline --config ./app/webpack.config.js",
+    "app:build": "rm -rf ./app/dist & webpack --progress --config ./app/webpack.prod.config.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fortawesome/fontawesome": "^1.0.1",
+    "@fortawesome/vue-fontawesome": "0.0.21",
+    "d3": "^4.12.2",
+    "d3-interpolate-path": "^2.0.1",
+    "electron": "^1.7.9",
+    "lodash": "^4.17.4",
+    "moment": "^2.18.1",
+    "nedb": "^1.8.0",
+    "vue": "^2.4.2",
+    "vue-router": "^2.7.0",
+    "vuex": "^2.3.1"
+  },
+  "devDependencies": {
+    "ava": "^0.24.0",
+    "babel-core": "^6.25.0",
+    "babel-loader": "^7.1.1",
+    "babel-plugin-transform-es2015-shorthand-properties": "^6.24.1",
+    "babel-plugin-transform-regenerator": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-stage-2": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "copy-webpack-plugin": "^4.3.1",
+    "css-loader": "^0.28.4",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-webpack-plugin": "^2.29.0",
+    "node-sass": "^4.5.3",
+    "postcss-loader": "^2.0.6",
+    "precss": "^2.0.0",
+    "sass-loader": "^6.0.6",
+    "style-loader": "^0.18.2",
+    "vue-loader": "^13.0.2",
+    "vue-template-compiler": "^2.4.2",
+    "webpack": "^2.2.0",
+    "webpack-node-externals": "^1.6.0",
+    "webpack-svgstore-plugin": "^4.0.1"
+  }
+}
