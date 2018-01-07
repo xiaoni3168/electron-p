@@ -4,6 +4,8 @@ const url = require('url')
 
 const remote = require('./backend/remote');
 
+const Server = require('./backend/src/server/server');
+
 // 保持一个对于 window 对象的全局引用，如果你不这样做，
 // 当 JavaScript 对象被垃圾回收， window 会被自动地关闭
 let win
@@ -22,6 +24,10 @@ function createWindow () {
 
   // 打开开发者工具。
 //   win.webContents.openDevTools()
+
+  // open mqtt
+  const sev = new Server(remote);
+  sev.init();
 
   // 当 window 被关闭，这个事件会被触发。
   win.on('closed', () => {

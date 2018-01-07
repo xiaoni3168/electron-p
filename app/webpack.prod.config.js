@@ -3,7 +3,13 @@ const path = require('path');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const SvgStore = require('webpack-svgstore-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
+
+const museUiThemePath = path.join(
+    __dirname,
+    'node_modules',
+    'muse-ui',
+    'src/styles/themes/variables/default.less'
+)
 
 module.exports = {
     entry: {
@@ -35,6 +41,22 @@ module.exports = {
                                 }
                             ],
                             fallback: 'vue-style-loader'
+                        }),
+                        less: ExtractTextPlugin.extract({
+                            use: [
+                                {
+                                    loader: 'css-loader'
+                                },
+                                {
+                                    loader: 'less-loader',
+                                    options: {
+                                        globalVars: {
+                                            museUiTheme: `'${museUiThemePath}'`
+                                        }
+                                    }
+                                }
+                            ],
+                            fallback: 'vue-style-loader'
                         })
                     }
                 }
@@ -46,13 +68,22 @@ module.exports = {
                 options: {
                     presets: ['es2015']
                 }
+            },
+            {
+                test: /muse-ui.src.*?js$/,
+                loader: 'babel-loader'
+            },
+            {
+                test:/\.css$/,
+                loader:'style-loader!css-loader',
             }
         ]
     },
     resolve: {
         extensions: ['.js', '.vue', '.json'],
         alias: {
-            'vue$': 'vue/dist/vue.esm.js'
+            'vue$': 'vue/dist/vue.esm.js',
+            'muse-components': 'muse-ui/src'
         }
     },
     plugins: [
@@ -79,9 +110,6 @@ module.exports = {
             filename: 'index.html',
             template: path.resolve(__dirname, 'index.html'),
             inject: 'body'
-        }),
-        new CopyWebpackPlugin([
-            { from: path.resolve(__dirname, 'app.manifest'), to: path.resolve(__dirname, 'dist/app.manifest') }
-        ])
+        })
     ]
 }

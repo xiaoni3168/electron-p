@@ -24,16 +24,52 @@ class DB {
             });
         });
     }
+
+    insert (doc) {
+        return new Promise ((resolve, reject) => {
+            DBS[this.database].insert(doc, function (err, _doc) {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(_doc);
+                }
+            });
+        });
+    }
+
+    update (conditions, sets, options) {
+        return new Promise ((resolve, reject) => {
+            DBS[this.database].update(conditions, { $set: sets }, options, (err, doc) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(doc);
+                }
+            });
+        });
+    }
+
+    delete (conditions, options) {
+        return new Promise ((resolve, reject) => {
+            DBS[this.database].remove(conditions, options, (err, doc) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(doc);
+                }
+            });
+        });
+    }
 }
 
 module.exports = DB;
 
 let bill = {
-    type: 3,
+    type: 8,
     gain: 1,
-    number: 1000,
-    date: 1514937600000,
-    description: '微信转账'
+    number: 3.87,
+    date: 1515024000000,
+    description: '京东小金库'
 }
 
 // DBS.p_bill.insert(bill, (err, n) => {
@@ -42,6 +78,6 @@ let bill = {
 // DBS.p_bill.update({_id: 'zAt8A6pXycSzmMSk'}, { $set : { description: '京东小金库' }}, {}, (err, doc) => {
 //     console.log(doc);
 // })
-// DBS.p_finance.find({}, (err, d) => {
+// DBS.p_finance.find({type: 8}, (err, d) => {
 //     console.log(d)
 // })
