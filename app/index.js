@@ -4,11 +4,16 @@ import MuseUI from 'muse-ui';
 
 import Login from './src/pages/Login';
 import Bill from './src/pages/Bill';
+import Dashboard from './src/pages/Dashboard';
 
 import 'muse-ui/dist/muse-ui.css';
 
+import registComponent from './src/components/index';
+
 Vue.use(VueRouter);
 Vue.use(MuseUI);
+
+registComponent(Vue);
 
 const __svg__ = {
     path: './src/assets/svg/*.svg',
@@ -25,6 +30,10 @@ const routes = [{
     name: 'Bill',
     path: '/bill',
     component: Bill
+}, {
+    name: 'Dashboard',
+    path: '/dashboard',
+    component: Dashboard
 }, {
     path: '*',
     redirect: '/login'
