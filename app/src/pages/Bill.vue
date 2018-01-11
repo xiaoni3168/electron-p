@@ -23,10 +23,10 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 import moment from 'moment';
 import _ from 'lodash';
 import BillModal from '../components/BillModal';
+import * as API from '../api/api';
 import PSvg from '../components/PSvg';
 export default {
     data () {
@@ -51,14 +51,14 @@ export default {
         },
 
         initList () {
-            axios.get('http://192.168.1.102:1883/api/bill/list').then(res => {
+            API.getBillList().then(res => {
                 this.billList = res.data;
                 localStorage.setItem('bill', JSON.stringify(res.data));
             });
         },
 
         loadAllFinance () {
-            axios.get('http://192.168.1.102:1883/api/finance/all').then(res => {
+            API.getAllFinances().then(res => {
                 localStorage.setItem('finance', JSON.stringify(res.data));
             });
         },

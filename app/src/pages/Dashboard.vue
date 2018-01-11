@@ -15,7 +15,7 @@
 </template>
 <script>
 import moment from 'moment';
-import axios from 'axios';
+import * as API from '../api/api';
 export default {
     data () {
         return {
@@ -28,7 +28,7 @@ export default {
     },
     methods: {
         loadAllFinance () {
-            axios.get('http://192.168.1.102:1883/api/finance/all').then(res => {
+            API.getAllFinances().then(res => {
                 this.finances = res.data;
                 localStorage.setItem('finance', JSON.stringify(res.data));
             });

@@ -24,9 +24,9 @@
     </div>
 </template>
 <script>
-import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
+import * as API from '../api/api';
 export default {
     data () {
         return {
@@ -60,7 +60,7 @@ export default {
                 description: this.description
             }
             
-            axios.post('http://192.168.1.102:1883/api/bill/add', bill).then(r => {
+            API.addBill(bill).then(r => {
                 console.log(r);
             }).catch(e => {
                 console.log(e);
