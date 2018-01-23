@@ -5,6 +5,7 @@ import MuseUI from 'muse-ui';
 import Login from './src/pages/Login';
 import Bill from './src/pages/Bill';
 import Dashboard from './src/pages/Dashboard';
+import Money from './src/pages/Money';
 
 import 'muse-ui/dist/muse-ui.css';
 
@@ -34,6 +35,10 @@ const routes = [{
     name: 'Dashboard',
     path: '/dashboard',
     component: Dashboard
+}, {
+    name: 'Money',
+    path: '/money',
+    component: Money
 }, {
     path: '*',
     redirect: '/login'

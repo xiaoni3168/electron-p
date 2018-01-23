@@ -21,12 +21,14 @@
             <mu-raised-button label="录入" class="bill-raised-button" primary @click="add"></mu-raised-button>
             <mu-raised-button label="取消" class="bill-raised-button" secondary @click="cancel"></mu-raised-button>
         </div>
+
+        <mu-snackbar v-if="showSnack" :message="latestMoney" action="好的" @actionClick="closeSnack" @close="closeSnack"></mu-snackbar>
     </div>
 </template>
 <script>
-import axios from 'axios';
 import _ from 'lodash';
 import moment from 'moment';
+import * as API from '../api/api';
 export default {
     data () {
         return {
@@ -38,7 +40,9 @@ export default {
 
             finance: [],
             bill: [],
-            dataSource: []
+            dataSource: [],
+            showSnack: false,
+            latestMoney: ''
         }
     },
     beforeMount () {
@@ -60,7 +64,9 @@ export default {
                 description: this.description
             }
             
-            axios.post('http://192.168.1.102:1883/api/bill/add', bill).then(r => {
+            API.addBill(bill).then(r => {
+                this.latestMoney = `余额：${r.data.latest}`;
+                this.showSnack = true;
                 console.log(r);
             }).catch(e => {
                 console.log(e);
@@ -74,6 +80,9 @@ export default {
         },
         handleDescriptionInput (value) {
             this.dataSource = _.uniq(this.bill.map(b => b.description));
+        },
+        closeSnack () {
+            this.showSnack = false;
         }
     }
 }

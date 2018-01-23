@@ -6,7 +6,8 @@ const p_bill = new DB('p_bill');
 module.exports = {
     addBill: addBill,
     deleteBill: deleteBill,
-    getAllBills: getAllBills
+    getAllBills: getAllBills,
+    getBillsByCondition: getBillsByCondition
 }
 
 async function addBill (bill) {
@@ -19,4 +20,8 @@ async function deleteBill (id) {
 
 async function getAllBills () {
     return await p_bill.find({});
+}
+
+async function getBillsByCondition (condition) {
+    return await p_bill.find(condition);
 }

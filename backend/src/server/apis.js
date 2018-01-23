@@ -22,7 +22,7 @@ module.exports = [
                     }
                     console.log(number)
                     this.$remote.finance.updateFinance({ type: bill.type }, { number: number }).then(_r => {
-                        res.status(200).send(r);
+                        res.status(200).send({ bill: r, latest: number });
                     }).catch(e => {
                         this.$remote.bill.deleteBill(r._id);
                         res.status(500).send(e);
@@ -50,6 +50,26 @@ module.exports = [
         handler: function (req, res) {
             this.$remote.finance.getAllFinance().then(finances => {
                 res.status(200).send(finances);
+            }).catch(e => {
+                res.status(500).send(e);
+            });
+        }
+    },
+    {
+        url: '/api/bill/listByMonth',
+        method: 'GET',
+        handler: function (req, res) {
+            let date = new Date(+req.query.date);
+            let year = date.getFullYear(),
+                month = date.getMonth();
+            
+            let start = +new Date(year, month, 1),
+                end = +new Date(year, month + 1, 0);
+            
+            let condition = { date: { $gt: start, $lt: end } };
+
+            this.$remote.bill.getBillsByCondition(condition).then(bills => {
+                res.status(200).send(bills);
             }).catch(e => {
                 res.status(500).send(e);
             });
